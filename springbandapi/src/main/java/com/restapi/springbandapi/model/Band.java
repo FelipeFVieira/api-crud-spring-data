@@ -5,9 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-public class Bands {
+@Table(name = "bands")
+public class Band {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,9 +23,9 @@ public class Bands {
     @Column(name = "status", nullable = false)
     private String status;
     
-    public Bands() {}
+    public Band() {}
 
-    public Bands(Long id, String name, int release_year, String status) {
+    public Band(Long id, String name, int release_year, String status) {
         this.id = id;
     	this.name = name;
         this.release_year = release_year;
