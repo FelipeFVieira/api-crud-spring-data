@@ -17,7 +17,7 @@ import com.restapi.springbandapi.repository.SpringDataRepository;
 
 
 @RestController
-@RequestMapping(path="/band")
+@RequestMapping(path="/bands")
 public class BandController {
 	
 	@Autowired
@@ -29,5 +29,10 @@ public class BandController {
 		return SpringDataRepository.findAll();
 	}
 	
+	@PostMapping(path="/add")
+	public @ResponseBody String addNewUser(@RequestBody Band band) {
+		SpringDataRepository.save(band);
+		return "user added\n" + band.getName() + " " + band.getRelease_year() + " " + band.getStatus();
+	}
 	
 }
