@@ -1,6 +1,7 @@
 package com.restapi.springbandapi.controller;
 
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,9 +31,25 @@ public class BandController {
 	}
 	
 	@PostMapping(path="/add")
-	public @ResponseBody String addNewUser(@RequestBody Band band) {
+	public @ResponseBody String addNewUser (@RequestBody Band band) {
 		SpringDataRepository.save(band);
 		return "user added\n" + band.getName() + " " + band.getRelease_year() + " " + band.getStatus();
 	}
+	
+	@DeleteMapping(path="/del/{id}")
+	public @ResponseBody String deleteUser (@PathVariable int id) {
+		Band band;
+		Optional<Band> optionalUser = SpringDataRepository.findById(id);
+		if (optionalUser.isPresent()) {
+		    band = optionalUser.get();
+		    SpringDataRepository.delete(band);
+		  
+		} else {
+			return "User not exist!";
+		}
+		
+		return "User deleted!\n" + band.getName() + " " + band.getRelease_year() + " " + band.getStatus() ;
+	}
+	
 	
 }
