@@ -29,7 +29,7 @@ public class BandController {
 	
 	
 	@GetMapping(path="/all")
-	public @ResponseBody ResponseEntity<Iterable<Band>> getAllUsers() {
+	public @ResponseBody ResponseEntity<Iterable<Band>> getAllBands() {
 		   try {
 		        Iterable<Band> allBands = SpringDataRepository.findAll();
 		        return ResponseEntity.ok(allBands);
@@ -39,7 +39,7 @@ public class BandController {
 	}
 	
 	@PostMapping(path="/add")
-	public @ResponseBody ResponseEntity<Band> addNewUser (@Validated @RequestBody Band band) {
+	public @ResponseBody ResponseEntity<Band> addNewBand (@Validated @RequestBody Band band) {
 		try {
 	        Band savedBand = SpringDataRepository.save(band);
 	        return ResponseEntity.ok(savedBand);
@@ -49,7 +49,7 @@ public class BandController {
 	}
 	
 	@DeleteMapping(path="/del/{id}")
-	public @ResponseBody ResponseEntity<Band> deleteUser (@PathVariable int id) {
+	public @ResponseBody ResponseEntity<Band> deleteBand (@PathVariable int id) {
 		Band band;
 		Optional<Band> optionalUser = SpringDataRepository.findById(id);
 		if (!optionalUser.isPresent()) {
@@ -62,7 +62,7 @@ public class BandController {
 	}
 	
 	@PutMapping(path="/update/{id}")
-	public @ResponseBody ResponseEntity<Band> updateUser(@PathVariable int id, @RequestBody Band updatedBand) {
+	public @ResponseBody ResponseEntity<Band> updateBand(@PathVariable int id, @RequestBody Band updatedBand) {
 		Optional<Band> optionalBand = SpringDataRepository.findById(id);
 	    if (!optionalBand.isPresent()) {
 	        return ResponseEntity.notFound().build();
