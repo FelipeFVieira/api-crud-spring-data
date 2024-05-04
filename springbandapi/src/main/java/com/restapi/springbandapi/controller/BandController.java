@@ -3,6 +3,7 @@ package com.restapi.springbandapi.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restapi.springbandapi.model.Band;
 import com.restapi.springbandapi.repository.SpringDataRepository;
-
+import org.springframework.validation.annotation.Validated;
 
 
 @RestController
@@ -28,29 +29,36 @@ public class BandController {
 	
 	
 	@GetMapping(path="/all")
-	public @ResponseBody Iterable<Band> getAllUsers() {
-		return SpringDataRepository.findAll();
+	public @ResponseBody ResponseEntity<Iterable<Band>> getAllUsers() {
+		   try {
+		        Iterable<Band> allBands = SpringDataRepository.findAll();
+		        return ResponseEntity.ok(allBands);
+		    } catch (Exception e) {
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		    }
 	}
 	
 	@PostMapping(path="/add")
-	public @ResponseBody String addNewUser (@RequestBody Band band) {
-		SpringDataRepository.save(band);
-		return "user added\n" + band.getName() + " " + band.getRelease_year() + " " + band.getStatus();
+	public @ResponseBody ResponseEntity<Band> addNewUser (@Validated @RequestBody Band band) {
+		try {
+	        Band savedBand = SpringDataRepository.save(band);
+	        return ResponseEntity.ok(savedBand);
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	    }
 	}
 	
 	@DeleteMapping(path="/del/{id}")
-	public @ResponseBody String deleteUser (@PathVariable int id) {
+	public @ResponseBody ResponseEntity<Band> deleteUser (@PathVariable int id) {
 		Band band;
 		Optional<Band> optionalUser = SpringDataRepository.findById(id);
-		if (optionalUser.isPresent()) {
-		    band = optionalUser.get();
-		    SpringDataRepository.delete(band);
-		  
-		} else {
-			return "User not exist!";
-		}
+		if (!optionalUser.isPresent()) {
+			return ResponseEntity.notFound().build();
+		} 
 		
-		return "User deleted!\n" + band.getName() + " " + band.getRelease_year() + " " + band.getStatus() ;
+		band = optionalUser.get();
+	    SpringDataRepository.delete(band);
+		return ResponseEntity.ok(band);
 	}
 	
 	@PutMapping(path="/update/{id}")
@@ -59,7 +67,7 @@ public class BandController {
 	    if (!optionalBand.isPresent()) {
 	        return ResponseEntity.notFound().build();
 	    }
-	   
+	    
 	    Band band = optionalBand.get();
 	    band.setName(updatedBand.getName());
 	    band.setRelease_year(updatedBand.getRelease_year());
