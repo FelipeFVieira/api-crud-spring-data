@@ -1,13 +1,13 @@
-package com.restapi.springbandapi;
+package com.restapi.SpringBandAPI;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbandapiApplication {
+public class SpringBandAPIApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbandapiApplication.class, args);
+		SpringApplication.run(SpringBandAPIApplication.class, args);
 	}
 
 }

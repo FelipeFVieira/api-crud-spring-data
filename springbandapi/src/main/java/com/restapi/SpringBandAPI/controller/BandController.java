@@ -1,4 +1,4 @@
-package com.restapi.springbandapi.controller;
+package com.restapi.SpringBandAPI.controller;
 
 import java.util.Optional;
 
@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.restapi.springbandapi.model.Band;
-import com.restapi.springbandapi.repository.SpringDataRepository;
+import com.restapi.SpringBandAPI.model.Band;
+import com.restapi.SpringBandAPI.repository.SpringDataRepository;
+
 import org.springframework.validation.annotation.Validated;
 
 

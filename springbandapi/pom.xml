@@ -8,11 +8,11 @@
 		<version>3.2.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.restapi.springbandapi</groupId>
-	<artifactId>springbandapi</artifactId>
+	<groupId>com.restapi.SpringBandAPI</groupId>
+	<artifactId>SpringBandAPI</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springbandapi</name>
-	<description>springbandapi</description>
+	<name>SpringBandAPI</name>
+	<description>SpringBandAPI</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -42,6 +42,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 	</dependencies>
 
 	<build>

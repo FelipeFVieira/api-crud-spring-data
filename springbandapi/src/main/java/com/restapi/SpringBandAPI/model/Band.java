@@ -1,4 +1,4 @@
-package com.restapi.springbandapi.model;
+package com.restapi.SpringBandAPI.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
