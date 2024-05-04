@@ -3,10 +3,12 @@ package com.restapi.springbandapi.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,5 +53,21 @@ public class BandController {
 		return "User deleted!\n" + band.getName() + " " + band.getRelease_year() + " " + band.getStatus() ;
 	}
 	
+	@PutMapping(path="/update/{id}")
+	public @ResponseBody ResponseEntity<Band> updateUser(@PathVariable int id, @RequestBody Band updatedBand) {
+		Optional<Band> optionalBand = SpringDataRepository.findById(id);
+	    if (!optionalBand.isPresent()) {
+	        return ResponseEntity.notFound().build();
+	    }
+	   
+	    Band band = optionalBand.get();
+	    band.setName(updatedBand.getName());
+	    band.setRelease_year(updatedBand.getRelease_year());
+	    band.setStatus(updatedBand.getStatus());
+
+	    Band savedBand = SpringDataRepository.save(band);
+	    return ResponseEntity.ok(savedBand);
+		
+	}
 	
 }
